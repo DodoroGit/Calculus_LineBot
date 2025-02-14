@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>微分應用重點整理</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+    
+    <style>
+        .title {
+            font-family : Microsoft JhengHei ;
+            font-size : 40px ;
+            text-align: center ;
+            font-weight: bold ;
+        }
+    
+        .word {
+            font-family : Microsoft JhengHei ;
+            font-size : 18px ;
+        }
+        
+        .select {
+            font-family : Microsoft JhengHei ;
+            font-size : 18px ;
+            width: 100px;
+        }
+        
+        
+        body {
+          background-image: url("https://i.imgur.com/TZoo3tm.png");
+          background-attachment: fixed ;
+          background-repeat: no-repeat ;
+          background-position: center ;
+          background-size: cover ; 
+        }
+        
+        .link {
+            font-size : 18px ;
+            font-family : Microsoft JhengHei ;
+            font-weight: bold ;
+            color:#0000AA
+        }
+    
+    </style>
+    
+    <body>
+        <center>
+        <h1 class="title">微分應用重點整理</h1><br>
+        <img src="https://i.imgur.com/zd3ghxM.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/4YdU2YH.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/RNiMblG.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/gCj5vbb.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/K7qzt3R.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/WwUKnKD.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/rrcu0Uz.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/TSzM1hw.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/t5DbOHM.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/Jz4cdWm.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/fS67BR7.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/cI9v4CG.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/93yj46H.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/ykUAaEx.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/NjuvgBB.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/YWtW6Kw.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/0hslCCY.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/fEFdS64.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/IsghHkd.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/iStPnqt.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/9M3Cv3Y.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/LpNG1hP.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/Z8gtMP4.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/LTtFROE.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/BjN3u7B.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/2vqdezW.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/nQLRJw1.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/PnIoZgi.png" alt="" width="300" class="img"/><br><br>
+
+        </center>
+    </body>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+    
+        var StartTime = new Date().getTime() ;	
+        
+        var clock = setInterval( RecordTime, 5000 ) ;
+        
+        var ReadSequence = Math.floor( Math.random()*1000000 + 1 ) 
+        
+        function initializeLiff(myLiffId) {
+            liff.init({liffId: myLiffId });
+        }
+        
+        function RecordTime() {
+        
+            initializeLiff("{{ liffid }}");
+            
+            var EndTime    =  new Date().getTime() ;	
+            var UseTime    = EndTime - StartTime ;
+            var min        = Math.floor( UseTime/1000/60 ) ; 
+    		var sec        = Math.floor( ( UseTime / 1000 ) % 60 ) ;
+			var FinishTime = min + "分" + sec + "秒" ;
+			var msg = "閱讀重點:微分應用\n" + "目前閱讀時間:" + FinishTime + "\n閱讀隨機序號:" + ReadSequence ;
+			
+			liff.sendMessages([{ type : "text", text : msg }]) ;
+        }        
+        
+    </script>
+</html>

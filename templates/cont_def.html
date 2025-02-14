@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>連續重點整理</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+    
+    <style>
+        .title {
+            font-family : Microsoft JhengHei ;
+            font-size : 40px ;
+            text-align: center ;
+            font-weight: bold ;
+        }
+    
+        .word {
+            font-family : Microsoft JhengHei ;
+            font-size : 18px ;
+        }
+        
+        .select {
+            font-family : Microsoft JhengHei ;
+            font-size : 18px ;
+            width: 100px;
+        }
+        
+        
+        body {
+          background-image: url("https://i.imgur.com/TZoo3tm.png");
+          background-attachment: fixed ;
+          background-repeat: no-repeat ;
+          background-position: center ;
+          background-size: cover ; 
+        }
+        
+        .link {
+            font-size : 18px ;
+            font-family : Microsoft JhengHei ;
+            font-weight: bold ;
+            color:#0000AA
+        }
+    
+    </style>
+    
+    <body>
+        <center>
+        <h1 class="title">連續重點整理</h1><br>
+        <img src="https://i.imgur.com/uyXQ5pq.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/TcsGnu2.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/XQ2tEiW.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/eRvNCOJ.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/tAdpxAu.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/mgGmF4B.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/DV7kyqW.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/TEqDl3r.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/HpNGN1u.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/EaJpa3L.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/Ai1c47l.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/C0eRQib.png" alt="" width="300" class="img"/><br><br>
+        <img src="https://i.imgur.com/X88TuEg.png" alt="" width="300" class="img"/><br><br>
+        </center>
+    </body>
+    
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        
+        
+        var StartTime = new Date().getTime() ;	
+        
+        var clock = setInterval( RecordTime, 5000 ) ;
+        
+        var ReadSequence = Math.floor( Math.random()*1000000 + 1 ) 
+        
+        function initializeLiff(myLiffId) {
+            liff.init({liffId: myLiffId });
+        }
+        
+        function RecordTime() {
+        
+            initializeLiff("{{ liffid }}");
+            
+            var EndTime    =  new Date().getTime() ;	
+            var UseTime    = EndTime - StartTime ;
+            var min        = Math.floor( UseTime/1000/60 ) ; 
+    		var sec        = Math.floor( ( UseTime / 1000 ) % 60 ) ;
+			var FinishTime = min + "分" + sec + "秒" ;
+			var msg = "閱讀重點:連續\n" + "目前閱讀時間:" + FinishTime + "\n閱讀隨機序號:" + ReadSequence ;
+			
+			liff.sendMessages([{ type : "text", text : msg }]) ;
+        }        
+        
+    </script>
+</html>

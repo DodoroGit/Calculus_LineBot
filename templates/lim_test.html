@@ -1,0 +1,952 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>極限測驗</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+    </head>
+    
+    <style>
+        .title {
+        	font-size: 40px;
+        	font-family:DFKai-sb, Arial;
+        	font-weight: bold;
+        	text-shadow: rgba(155, 155, 155, 0.57) 0px 0px 0px;
+        }   
+    
+        .word {
+            font-family:DFKai-sb, Arial;
+            font-size : 18px ;
+            font-weight: bold;
+        }
+        
+        .select {
+            width:100px;
+            font-size:18px;
+            background-color:#71dede;
+            border: solid 1px #000000;
+            color:#203336;
+            font-family:DFKai-sb, Arial;
+            font-weight: bold;
+        }
+        
+        .button {
+            font-family:DFKai-sb, Arial;
+            font-size : 16px ;
+            border : 0 ;
+            background-color : #003C9D ;
+            color : #fff ;
+        }
+        
+        
+        body {
+          background-image: url("https://i.imgur.com/TZoo3tm.png");
+          background-attachment: fixed ;
+          background-repeat: no-repeat ;
+          background-position: center ;
+          background-size: cover ; 
+        }
+        
+        .link {
+            font-size : 18px ;
+            font-family:DFKai-sb, Arial;
+            font-weight: bold ;
+            color:#0000AA
+        }
+        
+        .send {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            padding: 5px 15px;
+            border: 1px solid #258f8e;
+            border-radius: 8px;
+            background: #3ce9e6;
+            background: -webkit-gradient(linear, left top, left bottom, from(#3ce9e6), to(#258f8e));
+            background: -moz-linear-gradient(top, #3ce9e6, #258f8e);
+            background: linear-gradient(to bottom, #3ce9e6, #258f8e);
+            -webkit-box-shadow: #37d7d4 0px 0px 30px 0px;
+            -moz-box-shadow: #37d7d4 0px 0px 30px 0px;
+            box-shadow: #37d7d4 0px 0px 30px 0px;
+            text-shadow: #175a59 0px 0px 4px;
+            font: normal normal bold 16px arial;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .send:hover,
+        .send:focus {
+            border: 1px solid #2eb3b1;
+            background: #48ffff;
+            background: -webkit-gradient(linear, left top, left bottom, from(#48ffff), to(#2cacaa));
+            background: -moz-linear-gradient(top, #48ffff, #2cacaa);
+            background: linear-gradient(to bottom, #48ffff, #2cacaa);
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .send:active {
+            background: #258f8e;
+            background: -webkit-gradient(linear, left top, left bottom, from(#258f8e), to(#258f8e));
+            background: -moz-linear-gradient(top, #258f8e, #258f8e);
+            background: linear-gradient(to bottom, #258f8e, #258f8e);
+        }
+        .send:before{
+            content:  "\0000a0";
+            display: inline-block;
+            height: 24px;
+            width: 24px;
+            line-height: 24px;
+            margin: 0 4px -6px -4px;
+            position: relative;
+            top: 0px;
+            left: 0px;
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAy0lEQVRIie3UoU4DQRhF4S9tg0IhUQSNrCepQ0BNLclqTN+gL9EHAE3SBIcrqahD8gBVlSgkm9Ygms1uZ6c7myD2mJlMJvf8uZkMHf+da2TotSWYYYdnnJ0SEJqs/7dmeMdFakF+sB9hhauUgiI3WGOYStAvObvEBx5SCPKK83Ms8NRUcIwB5pg0EZRVFJVxakXwiylejwUMAoIqfvCIt9DFkKCsoi3G+KwzSUhQrOgL99jUCSfuFS1xGxMeI3jBHb5jwuvQ+nfd0T57kv4Zv0lsFRMAAAAASUVORK5CYII=") no-repeat left center transparent;
+            background-size: 100% 100%;
+        }
+
+
+        .hint {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            padding: 5px 15px;
+            border: 1px solid #a25739;
+            border-radius: 8px;
+            background: #ff8e5c;
+            background: -webkit-gradient(linear, left top, left bottom, from(#ff8e5c), to(#a25739));
+            background: -moz-linear-gradient(top, #ff8e5c, #a25739);
+            background: linear-gradient(to bottom, #ff8e5c, #a25739);
+            -webkit-box-shadow: #f48355 0px 0px 30px 0px;
+            -moz-box-shadow: #f48355 0px 0px 30px 0px;
+            box-shadow: #f48355 0px 0px 30px 0px;
+            text-shadow: #663724 0px 0px 4px;
+            font: normal normal bold 16px arial;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .hint:hover,
+        .hint:focus {
+            border: 1px solid ##cb6d47;
+            background: #ffaa6e;
+            background: -webkit-gradient(linear, left top, left bottom, from(#ffaa6e), to(#c26844));
+            background: -moz-linear-gradient(top, #ffaa6e, #c26844);
+            background: linear-gradient(to bottom, #ffaa6e, #c26844);
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .hint:active {
+            background: #a25739;
+            background: -webkit-gradient(linear, left top, left bottom, from(#a25739), to(#a25739));
+            background: -moz-linear-gradient(top, #a25739, #a25739);
+            background: linear-gradient(to bottom, #a25739, #a25739);
+        }
+        .hint:before{
+            content:  "\0000a0";
+            display: inline-block;
+            height: 24px;
+            width: 24px;
+            line-height: 24px;
+            margin: 0 4px -6px -4px;
+            position: relative;
+            top: 0px;
+            left: 0px;
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABWElEQVRIid3UoUtDURTH8Q/jZYPBIKYhIksGg8HkH2AWk4hxmGSYBDGJyWAwiUmMRjGKmGSYxCBmo5iGjBnOEcaU7U1n8ZfevZx7vuf+znmX/6ZJLKD4q+Sv6OAFR1gcJWwhkx/jrAv2jAPMo/IbQCEqP8/1GFZwgRbaeMQeaj+FHInKx3r2x7GOq4R1cI9tTA8DWMzDq31iJlHHNd7FzW6xialBgEJ4flGyoCoaaGZhLVwOAh1k4HhJyKdqOBE32u8XOJ9BGyWSVjCHHdwJy96xPOjQg2jodyqwhEM8ZTFt3Ai7ZkoUZlfY1OtlkZV28CZ6tY6JMkm7NZtJ6j37S7m/5esoD62muHa3Dn3/n/xIDdGwaq4rwvOyIzxQ1QQ0cj0nmrk2KgBhUTO/dxIwdEP7qS6aWhPTcz3K5MSYtnAq7NoaNYB4W9oJGOrlLKsp8bb0/f3/rz4AFRpRugMNq0sAAAAASUVORK5CYII=") no-repeat left center transparent;
+            background-size: 100% 100%;
+        }
+
+    
+    </style>
+    
+    <body>
+        <center>
+        <h1 class="title">極限測驗選單</h1>
+        <select id="QuestionNumber" class="select">
+            <option value="" disabled selected hidden>請選擇</option>
+        	<option value="no.1">第一題</option>
+        	<option value="no.2">第二題</option>
+        	<option value="no.3">第三題</option>
+        	<option value="no.4">第四題</option>
+        	<option value="no.5">第五題</option>
+        	<option value="no.6">第六題</option>
+        	<option value="no.7">第七題</option>
+        	<option value="no.8">第八題</option>
+        	<option value="no.9">第九題</option>
+        	<option value="no.10">第十題</option>
+        	<option value="no.11">第十一題</option>
+        	<option value="no.12">第十二題</option>
+        	<option value="no.13">第十三題</option>
+        	<option value="no.14">第十四題</option>
+        </select>
+        
+        
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q1">
+                <h1 class="title">第一題</h1>
+            	<p><img src="https://i.imgur.com/W45QSBa.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)存在 (b)不存在</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_1" class="select">
+                	<option value="存在">(a)</option>
+                    <option value="不存在">(b)</option></select>
+            	<button class="send" id="send_answer_1">繳交</button><br>
+            	<button class="hint" id="readhint1">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q2">
+                <h1 class="title">第二題</h1>
+            	<p><img src="https://i.imgur.com/2GUsh80.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)1、(b)0、(c)16、(d)7</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_2" class="select">
+                	<option value="1">(a)</option>
+                	<option value="0">(b)</option>  
+                	<option value="16">(c)</option>
+                	<option value="7">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_2">繳交</button><br>
+            	<button class="hint" id="readhint2">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q3">
+                <h1 class="title">第三題</h1>
+            	<p><img src="https://i.imgur.com/CSTKVUt.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)0、(b)4、(c)3、(d)7</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_3" class="select">
+                	<option value="0">(a)</option>
+                	<option value="4">(b)</option>
+                	<option value="3">(c)</option>
+                	<option value="7">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_3">繳交</button><br>
+            	<button class="hint" id="readhint3">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q4">
+                <h1 class="title">第四題</h1>
+            	<p><img src="https://i.imgur.com/gOhv7zQ.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)不存在、(b)無限、(c)1、(d)0</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_4" class="select">
+                	<option value="不存在">(a)</option>
+                	<option value="無限">(b)</option>  
+                	<option value="1">(c)</option>
+                	<option value="0">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_4">繳交</button><br>
+            	<button class="hint" id="readhint4">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q5">
+                <h1 class="title">第五題</h1>
+            	<p><img src="https://i.imgur.com/3s9crGh.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)6/5、(b)2/3、(c)0、(d)不存在</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_5" class="select">
+                	<option value="6/5">(a)</option>
+                	<option value="2/3">(b)</option>  
+                	<option value="0">(c)</option>
+                	<option value="不存在">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_5">繳交</button><br>
+            	<button class="hint" id="readhint5">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q6">
+                <h1 class="title">第六題</h1>
+            	<p><img src="https://i.imgur.com/M3vm7gE.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)不存在、(b)0、(c)5、(d)12</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_6" class="select">
+                	<option value="不存在">(a)</option>
+                	<option value="0">(b)</option>  
+                	<option value="5">(c)</option>
+                	<option value="12">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_6">繳交</button><br>
+            	<button class="hint" id="readhint6">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q7">
+                <h1 class="title">第七題</h1>
+            	<p><img src="https://i.imgur.com/l1pBUMD.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)不存在、(b)0、(c)3x^2、(d)x^2+1</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_7" class="select">
+                	<option value="不存在">(a)</option>
+                	<option value="0">(b)</option>  
+                	<option value="3x^2">(c)</option>
+                	<option value="x^2+1">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_7">繳交</button><br>
+            	<button class="hint" id="readhint7">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q8">
+                <h1 class="title">第八題</h1>
+            	<p><img src="https://i.imgur.com/Ez2Pifa.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)不存在、(b)-1/9、(c)0、(d)1/3</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_8" class="select">
+                	<option value="不存在">(a)</option>
+                	<option value="-1/9">(b)</option>  
+                	<option value="0">(c)</option>
+                	<option value="1/3">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_8">繳交</button><br>
+            	<button class="hint" id="readhint8">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q9">
+                <h1 class="title">第九題</h1>
+            	<p><img src="https://i.imgur.com/7lSdj3w.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)不存在、(b)0、(c)10、(d)2/3</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_9" class="select">
+                	<option value="不存在">(a)</option>
+                	<option value="0">(b)</option>  
+                	<option value="10">(c)</option>
+                	<option value="2/3">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_9">繳交</button><br>
+            	<button class="hint" id="readhint9">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q10">
+                <h1 class="title">第十題</h1>
+            	<p><img src="https://i.imgur.com/YLhuwO4.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)不存在、(b)-1/2、(c)13、(d)-1/5</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_10" class="select">
+                	<option value="不存在">(a)</option>
+                	<option value="-1/2">(b)</option>  
+                	<option value="13">(c)</option>
+                	<option value="-1/5">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_10">繳交</button><br>
+            	<button class="hint" id="readhint10">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q11">
+                <h1 class="title">第十一題</h1>
+            	<p><img src="https://i.imgur.com/Mf5Wmzz.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)-4/5、(b)2/3、(c)0、(d)-1</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_11" class="select">
+                	<option value="-4/5">(a)</option>
+                	<option value="2/3">(b)</option>  
+                	<option value="0">(c)</option>
+                	<option value="-1">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_11">繳交</button><br>
+            	<button class="hint" id="readhint11">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q12">
+                <h1 class="title">第十二題</h1>
+            	<p><img src="https://i.imgur.com/FYcGBYA.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)7、(b)0、(c)16、(d)3</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_12" class="select">
+                	<option value="7">(a)</option>
+                	<option value="0">(b)</option>  
+                	<option value="16">(c)</option>
+                	<option value="3">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_12">繳交</button><br>
+            	<button class="hint" id="readhint12">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q13">
+                <h1 class="title">第十三題</h1>
+            	<p><img src="https://i.imgur.com/SL2UNAz.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)不存在、(b)1/4、(c)0、(d)9</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_13" class="select">
+                	<option value="不存在">(a)</option>
+                	<option value="1/4">(b)</option>  
+                	<option value="0">(c)</option>
+                	<option value="9">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_13">繳交</button><br>
+            	<button class="hint" id="readhint13">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Q14">
+                <h1 class="title">第十四題</h1>
+            	<p><img src="https://i.imgur.com/L1OKuIY.png" alt="" width="320" class="img"></p>
+            	<p class="word">選項 : (a)不存在、(b)7、(c)0、(d)3</p>
+            	<label class="word">答案：</label>
+            	<select id="answer_14" class="select">
+                	<option value="不存在">(a)</option>
+                	<option value="7">(b)</option>
+                	<option value="0">(c)</option>
+                	<option value="3">(d)</option>
+            	</select>
+            	<button class="send" id="send_answer_14">繳交</button><br>
+            	<button class="hint" id="readhint14">參考提示</button>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~題號分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint1">
+                <h1 class="title">第一題Hint</h1>
+            	<p><img src="https://i.imgur.com/sriN9VW.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint2">
+                <h1 class="title">第二題Hint</h1>
+            	<p><img src="https://i.imgur.com/EzUisMS.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint3">
+                <h1 class="title">第三題Hint</h1>
+            	<p><img src="https://i.imgur.com/E3wbpcQ.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint4">
+                <h1 class="title">第四題Hint</h1>
+            	<p><img src="https://i.imgur.com/sriN9VW.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint5">
+                <h1 class="title">第五題Hint</h1>
+            	<p><img src="https://i.imgur.com/qvRuuid.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint6">
+                <h1 class="title">第六題Hint</h1>
+            	<p><img src="https://i.imgur.com/syasSZD.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint7">
+                <h1 class="title">第七題Hint</h1>
+            	<p><img src="https://i.imgur.com/syasSZD.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint8">
+                <h1 class="title">第八題Hint</h1>
+            	<p><img src="https://i.imgur.com/syasSZD.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint9">
+                <h1 class="title">第九題Hint</h1>
+            	<p><img src="https://i.imgur.com/u5jwz4n.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint10">
+                <h1 class="title">第十題Hint</h1>
+            	<p><img src="https://i.imgur.com/tWu3FKq.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint11">
+                <h1 class="title">第十一題Hint</h1>
+            	<p><img src="https://i.imgur.com/tWu3FKq.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint12">
+                <h1 class="title">第十二題Hint</h1>
+            	<p><img src="https://i.imgur.com/yaSu1zq.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint13">
+                <h1 class="title">第十三題Hint</h1>
+            	<p><img src="https://i.imgur.com/yaSu1zq.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="Hint14">
+                <h1 class="title">第十四題Hint</h1>
+            	<p><img src="https://i.imgur.com/yaSu1zq.png" alt="" width="320" class="img"></p>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~提示分割線~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            
+        </center>
+    </body>
+    
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+
+        function initializeLiff(myLiffId) {
+            liff.init({liffId: myLiffId });
+        }
+        
+        StartTime = 0 ;
+        EndTime = 0 ;
+        
+        $("#Q1").hide()  ;
+        $("#Q2").hide()  ;
+        $("#Q3").hide()  ;
+        $("#Q4").hide()  ;
+        $("#Q5").hide()  ;
+        $("#Q6").hide()  ;
+        $("#Q7").hide()  ;
+        $("#Q8").hide()  ;
+        $("#Q9").hide()  ;
+        $("#Q10").hide() ;
+        $("#Q11").hide() ;
+        $("#Q12").hide() ;
+        $("#Q13").hide() ;
+        $("#Q14").hide() ;
+        
+        $("#Hint1").hide() ;
+        $("#Hint2").hide() ;
+        $("#Hint3").hide() ;
+        $("#Hint4").hide() ;
+        $("#Hint5").hide() ;
+        $("#Hint6").hide() ;
+        $("#Hint7").hide() ;
+        $("#Hint8").hide() ;
+        $("#Hint9").hide() ;
+        $("#Hint10").hide() ;
+        $("#Hint11").hide() ;
+        $("#Hint12").hide() ;
+        $("#Hint13").hide() ;
+        $("#Hint14").hide() ;
+        
+        $("#readhint1").hide() ;
+        $("#readhint2").hide() ;
+        $("#readhint3").hide() ;
+        $("#readhint4").hide() ;
+        $("#readhint5").hide() ;
+        $("#readhint6").hide() ;
+        $("#readhint7").hide() ;
+        $("#readhint8").hide() ;
+        $("#readhint9").hide() ;
+        $("#readhint10").hide() ;
+        $("#readhint11").hide() ;
+        $("#readhint12").hide() ;
+        $("#readhint13").hide() ;
+        $("#readhint14").hide() ;
+        
+        var SwitchQ1  = "False" ;
+        var SwitchQ2  = "False" ;
+        var SwitchQ3  = "False" ;
+        var SwitchQ4  = "False" ;
+        var SwitchQ5  = "False" ;
+        var SwitchQ6  = "False" ;
+        var SwitchQ7  = "False" ;
+        var SwitchQ8  = "False" ;
+        var SwitchQ9  = "False" ;
+        var SwitchQ10 = "False" ;
+        var SwitchQ11 = "False" ;
+        var SwitchQ12 = "False" ;
+        var SwitchQ13 = "False" ;
+        var SwitchQ14 = "False" ;
+        
+
+        function Send_Answer( answer ) {
+        
+            EndTime = new Date().getTime() ;	
+        
+    		if ( SwitchQ1 == "True" ) {
+                if ( answer == "不存在" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ2 == "True" ) {
+                if ( answer == "1" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ3 == "True" ) {
+                if ( answer == "7" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ4 == "True" ) {
+                if ( answer == "0" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ5 == "True" ) {
+                if ( answer == "6/5" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ6 == "True" ) {
+                if ( answer == "12" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ7 == "True" ) {
+                if ( answer == "3x^2" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ8 == "True" ) {
+                if ( answer == "-1/9" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ9 == "True" ) {
+                if ( answer == "2/3" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ10 == "True" ) {
+                if ( answer == "-1/2" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ11 == "True" ) {
+                if ( answer == "-4/5" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ12 == "True" ) {
+                if ( answer == "7" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ13 == "True" ) {
+                if ( answer == "0" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+            else if ( SwitchQ14 == "True" ) {
+                if ( answer == "0" ) {
+                    alert( "回答正確" ) ;
+            		judge = "True" ;
+                }
+                else {
+                    alert( "回答錯誤，請參考提示" ) ;
+            		judge = "False" ;
+                }
+            }
+			
+			
+			var UseTime = EndTime - StartTime ;
+			var min = Math.floor( UseTime/1000/60 ) ; 
+    		var sec = Math.floor( ( UseTime / 1000 ) % 60 ) ;
+			var FinishTime = min + '分' + sec + '秒' ;
+                    
+            var msg = "本次作答紀錄:\n" ;
+            if ( SwitchQ1 == "True" )       msg = msg + "完成題目:極限 第1題" + "\n", $("#readhint1").show()  ;
+            else if ( SwitchQ2 == "True" )  msg = msg + "完成題目:極限 第2題" + "\n", $("#readhint2").show()  ;
+            else if ( SwitchQ3 == "True" )  msg = msg + "完成題目:極限 第3題" + "\n", $("#readhint3").show()  ;
+            else if ( SwitchQ4 == "True" )  msg = msg + "完成題目:極限 第4題" + "\n", $("#readhint4").show()  ;
+            else if ( SwitchQ5 == "True" )  msg = msg + "完成題目:極限 第5題" + "\n", $("#readhint5").show()  ;
+            else if ( SwitchQ6 == "True" )  msg = msg + "完成題目:極限 第6題" + "\n", $("#readhint6").show()  ;
+            else if ( SwitchQ7 == "True" )  msg = msg + "完成題目:極限 第7題" + "\n", $("#readhint7").show()  ;
+            else if ( SwitchQ8 == "True" )  msg = msg + "完成題目:極限 第8題" + "\n", $("#readhint8").show()  ;
+            else if ( SwitchQ9 == "True" )  msg = msg + "完成題目:極限 第9題" + "\n", $("#readhint9").show()  ;
+            else if ( SwitchQ10 == "True" ) msg = msg + "完成題目:極限第10題" + "\n", $("#readhint10").show() ;
+            else if ( SwitchQ11 == "True" ) msg = msg + "完成題目:極限第11題" + "\n", $("#readhint11").show() ;
+            else if ( SwitchQ12 == "True" ) msg = msg + "完成題目:極限第12題" + "\n", $("#readhint12").show() ;
+            else if ( SwitchQ13 == "True" ) msg = msg + "完成題目:極限第13題" + "\n", $("#readhint13").show() ;
+            else if ( SwitchQ14 == "True" ) msg = msg + "完成題目:極限第14題" + "\n", $("#readhint14").show() ;
+			
+            msg = msg + "您的答案為 : " + answer     + " \n" ;
+            msg = msg + "作答結果為 : " + judge      + " \n" ;
+            msg = msg + "使用時間 : " + FinishTime   ;
+            
+            
+            liff.sendMessages([{ type : "text", text : msg }]) ;
+		}
+		
+		QuestionNumber.addEventListener( "change", function() {
+		
+    		selectedValue = document.getElementById( "QuestionNumber" ).value ; 
+    	
+    		$("#Q1").hide(), $("#Q2").hide(), $("#Q3").hide(),  $("#Q4").hide(),  $("#Q5").hide(),  $("#Q6").hide(),  $("#Q7").hide()  ;
+            $("#Q8").hide(), $("#Q9").hide(), $("#Q10").hide(), $("#Q11").hide(), $("#Q12").hide(), $("#Q13").hide(), $("#Q14").hide() ;
+            
+            $("#Hint1").hide(), $("#Hint2").hide(), $("#Hint3").hide(),  $("#Hint4").hide(),  $("#Hint5").hide(),  $("#Hint6").hide(),  $("#Hint7").hide() ;
+            $("#Hint8").hide(), $("#Hint9").hide(), $("#Hint10").hide(), $("#Hint11").hide(), $("#Hint12").hide(), $("#Hint13").hide(), $("#Hint14").hide() ;
+            
+            $("#readhint1").hide(), $("#readhint2").hide(), $("#readhint3").hide(),  $("#readhint4").hide(),  $("#readhint5").hide(), $("#readhint6").hide() ;
+            $("#readhint7").hide(), $("#readhint8").hide(), $("#readhint9").hide(), $("#readhint10").hide(), $("#readhint11").hide(), $("#readhint12").hide() ;
+            $("#readhint13").hide(), $("#readhint14").hide() ;
+            
+            SwitchQ1 = "False", SwitchQ2 = "False", SwitchQ3  = "False", SwitchQ4  = "False", SwitchQ5  = "False", SwitchQ6  = "False", SwitchQ7  = "False" ;
+            SwitchQ8 = "False", SwitchQ9 = "False", SwitchQ10 = "False", SwitchQ11 = "False", SwitchQ12 = "False", SwitchQ13 = "False", SwitchQ14 = "False" ;    
+            
+            if ( selectedValue === "no.1" )       $("#Q1").show(),  SwitchQ1  = "True"  ;
+            else if ( selectedValue === "no.2" )  $("#Q2").show(),  SwitchQ2  = "True"  ;
+            else if ( selectedValue === "no.3" )  $("#Q3").show(),  SwitchQ3  = "True"  ;
+            else if ( selectedValue === "no.4" )  $("#Q4").show(),  SwitchQ4  = "True"  ;
+            else if ( selectedValue === "no.5" )  $("#Q5").show(),  SwitchQ5  = "True"  ;
+            else if ( selectedValue === "no.6" )  $("#Q6").show(),  SwitchQ6  = "True"  ;
+            else if ( selectedValue === "no.7" )  $("#Q7").show(),  SwitchQ7  = "True"  ;
+            else if ( selectedValue === "no.8" )  $("#Q8").show(),  SwitchQ8  = "True"  ;
+            else if ( selectedValue === "no.9" )  $("#Q9").show(),  SwitchQ9  = "True"  ;
+            else if ( selectedValue === "no.10" ) $("#Q10").show(),  SwitchQ10  = "True"  ;
+            else if ( selectedValue === "no.11" ) $("#Q11").show(),  SwitchQ11  = "True"  ;
+            else if ( selectedValue === "no.12" ) $("#Q12").show(),  SwitchQ12  = "True"  ;
+            else if ( selectedValue === "no.13" ) $("#Q13").show(),  SwitchQ13  = "True"  ;
+            else if ( selectedValue === "no.14" ) $("#Q14").show(),  SwitchQ14  = "True"  ;
+            StartTime = new Date().getTime() ;
+            
+        });
+		
+		
+		$(document).ready(function () {                     //選擇題目按鈕
+			initializeLiff("{{ liffid }}");
+            $("#select_QNumber").click(function (e) {
+                Show_Question($("#QuestionNumber").val()) ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_1").click(function (e) {
+                Send_Answer($("#answer_1").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_2").click(function (e) {
+                Send_Answer($("#answer_2").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_3").click(function (e) {
+                Send_Answer($("#answer_3").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_4").click(function (e) {
+                Send_Answer($("#answer_4").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_5").click(function (e) {
+                Send_Answer($("#answer_5").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_6").click(function (e) {
+                Send_Answer($("#answer_6").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_7").click(function (e) {
+                Send_Answer($("#answer_7").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_8").click(function (e) {
+                Send_Answer($("#answer_8").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_9").click(function (e) {
+                Send_Answer($("#answer_9").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_10").click(function (e) {
+                Send_Answer($("#answer_10").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_11").click(function (e) {
+                Send_Answer($("#answer_11").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_12").click(function (e) {
+                Send_Answer($("#answer_12").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_13").click(function (e) {
+                Send_Answer($("#answer_13").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#send_answer_14").click(function (e) {
+                Send_Answer($("#answer_14").val());
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint1").click(function (e) {
+                $("#Hint1").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint2").click(function (e) {
+                $("#Hint2").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint3").click(function (e) {
+                $("#Hint3").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint4").click(function (e) {
+                $("#Hint4").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint5").click(function (e) {
+                $("#Hint5").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint6").click(function (e) {
+                $("#Hint6").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint7").click(function (e) {
+                $("#Hint7").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint8").click(function (e) {
+                $("#Hint8").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint9").click(function (e) {
+                $("#Hint9").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint10").click(function (e) {
+                $("#Hint10").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint11").click(function (e) {
+                $("#Hint11").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint12").click(function (e) {
+                $("#Hint12").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint13").click(function (e) {
+                $("#Hint13").show() ;
+            });
+		});
+		
+		$(document).ready(function () {
+			initializeLiff("{{ liffid }}") ;
+            $("#readhint14").click(function (e) {
+                $("#Hint14").show() ;
+            });
+		});
+    </script>
+</html>
