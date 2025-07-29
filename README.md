@@ -1,4 +1,4 @@
-# 微積分學習輔助系統（Python Flask + LINE Bot + PostgreSQL）
+# 微積分學習輔助系統（Flask + LINE Bot + PostgreSQL）
 
 本專案是一個結合 Python Flask 後端、基本前端技術與 LINE Bot 機器人整合的全端應用系統，旨在提供學生透過 LINE 互動進行微積分學習，並記錄學生學習歷程與測驗結果，作為教學與研究之用。
 
